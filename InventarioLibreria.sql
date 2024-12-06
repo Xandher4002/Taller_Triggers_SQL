@@ -15,7 +15,7 @@ Profesor: Julio Castillo
 		titulo VARCHAR(100),
 		autor VARCHAR(50),
 		precio DECIMAL (10, 2),
-        stock INT,
+        	stock INT,
 		anno INT,
 		editorial VARCHAR(100),
 		PRIMARY KEY(id_libro)
@@ -34,18 +34,18 @@ Profesor: Julio Castillo
 
 -- CREAMOS UN PROCEDIMIENTO ALMACENADO PARA INSERTAR LOS LIBROS
 	DELIMITER $
-	CREATE PROCEDURE insertar_libro(
-		IN p_titulo VARCHAR(100),
-		IN p_autor VARCHAR(50),
-		IN p_precio DECIMAL (10, 2),
-        IN p_stock INT,
-		IN p_anno INT,
-		IN p_editorial VARCHAR(100)
-	)
-	BEGIN
-		INSERT INTO libros(titulo, autor, precio, stock, anno, editorial)
-			VALUES(p_titulo, p_autor, p_precio, p_stock, p_anno, p_editorial);
-	END $$
+		CREATE PROCEDURE insertar_libro(
+			IN p_titulo VARCHAR(100),
+			IN p_autor VARCHAR(50),
+			IN p_precio DECIMAL (10, 2),
+	        	IN p_stock INT,
+			IN p_anno INT,
+			IN p_editorial VARCHAR(100)
+		)
+		BEGIN
+			INSERT INTO libros(titulo, autor, precio, stock, anno, editorial)
+				VALUES(p_titulo, p_autor, p_precio, p_stock, p_anno, p_editorial);
+		END $$
 	DELIMITER ;
 
 -- LLAMAMOS AL PROCEDIMIENTO ALMACENADO PARA INSERTAR LOS LIBROS
@@ -65,10 +65,10 @@ Profesor: Julio Castillo
 	CALL insertar_libro('Harry Potter y la piedra filosofal', 'J.K. Rowling', 23.50, 14, 1997, 'Bloomsbury');
 	CALL insertar_libro('El nombre de la rosa', 'Umberto Eco', 22.50, 6, 1980, 'Bompiani');
 
-    SELECT * FROM libros;
+    	SELECT * FROM libros;
     
 -- CREAMOS EL DISPARADOR PARA QUE CUANDO SE ACTUALICE EL PRECIO EN LA TABLA LIBROS, SE GUARDE EL PRECIO ANTERIOR EN LA TABLA CONTROL
-    DELIMITER $$ 
+    	DELIMITER $$ 
 		CREATE TRIGGER upd_precio AFTER UPDATE ON libros
 			FOR EACH ROW
 				BEGIN 
@@ -85,9 +85,9 @@ Profesor: Julio Castillo
 -- PROBAMOS QUE FUNCIONE CORRECTAMENTE
 	UPDATE libros SET precio=100.99 WHERE id_libro=1;
 	SELECT * FROM libros;
-    SELECT * FROM control;
+    	SELECT * FROM control;
 	
-    UPDATE libros SET precio=77.99 WHERE id_libro=5;
+    	UPDATE libros SET precio=77.99 WHERE id_libro=5;
 	SELECT * FROM libros;
-    SELECT * FROM control;
+    	SELECT * FROM control;
     
